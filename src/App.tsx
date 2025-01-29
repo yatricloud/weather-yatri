@@ -145,9 +145,9 @@ function App() {
           rel="noopener noreferrer" 
           className="text-4xl font-bold text-white mb-2 mt-8 hover:text-sky-100 transition-colors"
         >
-          YatriCloud
+          Weather Yatri
         </a>
-        <h2 className="text-2xl text-white/90 text-center mb-8">Weather Forecast</h2>
+        <h2 className="text-2xl text-white/90 text-center mb-8">Good Day Yatris👋</h2>
       </motion.div>
 
       <motion.form 
