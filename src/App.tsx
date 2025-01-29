@@ -1,59 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Sun, Moon, Cloud, CloudRain, Wind, Droplets, MapPin, ThermometerSun, Globe2 } from 'lucide-react';
+import { Search, Sun, Moon, CloudRain, Wind, Droplets, MapPin, ThermometerSun, Globe2 } from 'lucide-react';
 import axios from 'axios';
 
 const API_KEY = '1fa9ff4126d95b8db54f3897a208e91c';
 const API_URL = 'https://api.openweathermap.org/data/2.5';
-
-const FloatingClouds = () => {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      <motion.div
-        className="absolute top-10 left-[10%]"
-        animate={{
-          x: [0, 30, 0],
-          y: [0, 15, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Cloud className="w-16 h-16 text-white/30" />
-      </motion.div>
-      <motion.div
-        className="absolute top-32 right-[15%]"
-        animate={{
-          x: [0, -40, 0],
-          y: [0, 20, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Cloud className="w-24 h-24 text-white/20" />
-      </motion.div>
-      <motion.div
-        className="absolute bottom-20 left-[20%]"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, -15, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Cloud className="w-20 h-20 text-white/25" />
-      </motion.div>
-    </div>
-  );
-};
 
 function App() {
   const [city, setCity] = useState('');
@@ -121,7 +72,7 @@ function App() {
       case '03d':
       case '03n':
       case '04d':
-      case '04n': return <Cloud className="w-16 h-16 text-gray-400" />;
+      case '04n': return <CloudRain className="w-16 h-16 text-gray-400" />;
       case '09d':
       case '09n':
       case '10d':
@@ -132,8 +83,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0078f7] via-[#0065d1] to-[#004caa] p-4 flex flex-col items-center relative">
-      <FloatingClouds />
-      
       <motion.div 
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
