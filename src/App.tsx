@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Sun, Moon, Cloud, CloudRain, Wind, Droplets, MapPin, ThermometerSun, Globe2 } from 'lucide-react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const API_KEY = '1fa9ff4126d95b8db54f3897a208e91c';
 const API_URL = 'https://api.openweathermap.org/data/2.5';
@@ -132,6 +133,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0078f7] via-[#0065d1] to-[#004caa] p-4 flex flex-col items-center relative">
+      <Helmet>
+        <title>Weather Yatri - Yatri Cloud</title>
+        <meta name="description" content="Weather Yatri provides accurate weather forecasts for cities worldwide." />
+        <meta name="keywords" content="weather, forecast, city, temperature, humidity, wind" />
+        <meta property="og:title" content="Weather Yatri - Yatri Cloud" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/yatricloud/yatri-images/refs/heads/main/Logo/yatricloud-round-transparent.png" />
+        <meta property="og:url" content="https://yatricloud.com" />
+      </Helmet>
       <FloatingClouds />
       
       <motion.div 
