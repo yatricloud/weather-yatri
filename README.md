@@ -37,15 +37,37 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
    cd azure-functions/weather-alert
    ```
 
-3. Start the Azure Function locally:
+3. Create `host.json` in the `azure-functions/weather-alert` directory with the following content:
+   ```json
+   {
+     "version": "2.0",
+     "extensionBundle": {
+       "id": "Microsoft.Azure.Functions.ExtensionBundle",
+       "version": "[1.*, 2.0.0)"
+     }
+   }
+   ```
+
+4. Create `local.settings.json` in the `azure-functions/weather-alert` directory with the following content:
+   ```json
+   {
+     "IsEncrypted": false,
+     "Values": {
+       "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+       "WEATHER_API_KEY": "1fa9ff4126d95b8db54f3897a208e91c"
+     }
+   }
+   ```
+
+5. Start the Azure Function locally:
    ```sh
    func start
    ```
 
-4. Configure environment variables for OpenWeatherMap API:
+6. Configure environment variables for OpenWeatherMap API:
    - `WEATHER_API_KEY`: Your OpenWeatherMap API key
 
-5. Trigger the Azure Function by making a POST request to `http://localhost:7071/api/weather-alert` with the following JSON payload:
+7. Trigger the Azure Function by making a POST request to `http://localhost:7071/api/weather-alert` with the following JSON payload:
    ```json
    {
      "city": "CityName",
