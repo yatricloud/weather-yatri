@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "start:azure": "func start",
     "docker:build": "docker build -t yatri-weather .",
-    "docker:run": "docker run -p 5173:5173 yatri-weather"
+    "docker:run": "docker run -p 5173:5173 yatri-weather",
+    "start": "vite preview"
   },
   "dependencies": {
     "axios": "^1.6.7",
