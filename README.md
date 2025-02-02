@@ -42,11 +42,7 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
    func start
    ```
 
-4. Configure environment variables for Twilio and OpenWeatherMap API:
-   - `TWILIO_ACCOUNT_SID`: Your Twilio Account SID
-   - `TWILIO_AUTH_TOKEN`: Your Twilio Auth Token
-   - `TWILIO_PHONE_NUMBER`: Your Twilio phone number
-   - `ALERT_PHONE_NUMBER`: The phone number to send alerts to
+4. Configure environment variables for OpenWeatherMap API:
    - `WEATHER_API_KEY`: Your OpenWeatherMap API key
 
 5. Trigger the Azure Function by making a POST request to `http://localhost:7071/api/weather-alert` with the following JSON payload:
