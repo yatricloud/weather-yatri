@@ -22,7 +22,7 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
 
 ## Usage
 
-1. Open your browser and navigate to `http://localhost:3000`.
+1. Open your browser and navigate to `http://localhost:5173`.
 2. Enter a city name in the search bar to get the weather forecast.
 
 ## Setting Up Azure Function for Weather Alerts
