@@ -77,7 +77,9 @@ function App() {
     e.preventDefault();
     const trimmedCity = city.trim();
     if (trimmedCity) {
-      fetchWeather(trimmedCity);
+      fetchWeather(trimmedCity).catch((err) => {
+        setError('An unexpected error occurred while fetching weather data.');
+      });
     } else {
       setError('Please enter a city name.');
     }
