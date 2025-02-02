@@ -5,17 +5,20 @@ import axios from 'axios';
 
 const API_KEY = '1fa9ff4126d95b8db54f3897a208e91c';
 const API_URL = 'https://api.openweathermap.org/data/2.5';
+const AZURE_FUNCTION_URL = 'http://localhost:7071/api/weather-alert';
 
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [alert, setAlert] = useState('');
 
   const fetchWeather = async (searchCity: string) => {
     try {
       setLoading(true);
       setError('');
+      setAlert('');
       
       if (!/^[a-zA-Z\s-]+$/.test(searchCity)) {
         throw new Error('Please enter a valid city name using only letters, spaces, and hyphens.');
@@ -31,6 +34,7 @@ function App() {
       
       if (response.data) {
         setWeather(response.data);
+        triggerWeatherAlert(searchCity, response.data.main.temp);
       } else {
         throw new Error('No weather data available for this city.');
       }
@@ -50,6 +54,22 @@ function App() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const triggerWeatherAlert = async (city: string, temperature: number) => {
+    try {
+      const threshold = 30; // Example threshold
+      const response = await axios.post(AZURE_FUNCTION_URL, {
+        city,
+        threshold
+      });
+
+      if (response.data) {
+        setAlert(response.data.body);
+      }
+    } catch (err: any) {
+      setError('Error triggering weather alert.');
     }
   };
 
@@ -242,6 +262,17 @@ function App() {
                 <span>{weather.main.humidity}%</span>
               </motion.div>
             </div>
+
+            {alert && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="text-yellow-200 mt-4 text-center max-w-md z-10"
+              >
+                {alert}
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
