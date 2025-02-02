@@ -75,6 +75,35 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
    }
    ```
 
+## Containerizing the Application
+
+1. Build the Docker image:
+   ```sh
+   npm run docker:build
+   ```
+
+2. Run the Docker container locally:
+   ```sh
+   npm run docker:run
+   ```
+
+## Publishing the Docker Image to Azure Container Registry
+
+1. Login to your Azure account:
+   ```sh
+   az login
+   ```
+
+2. Create an Azure Container Registry (if you don't have one):
+   ```sh
+   az acr create --resource-group <resource-group-name> --name <registry-name> --sku Basic
+   ```
+
+3. Build and push the Docker image to Azure Container Registry:
+   ```sh
+   az acr build --registry <registry-name> --image yatri-weather:latest .
+   ```
+
 ## Contributing
 
 We welcome contributions to Weather Yatri! Please follow these guidelines:
