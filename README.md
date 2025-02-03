@@ -87,6 +87,23 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
    npm run docker:run
    ```
 
+## Publishing the Docker Image to Docker Hub
+
+1. Login to Docker Hub:
+   ```sh
+   docker login
+   ```
+
+2. Tag the Docker image:
+   ```sh
+   docker tag yatri-weather <your-dockerhub-username>/yatri-weather:latest
+   ```
+
+3. Push the Docker image to Docker Hub:
+   ```sh
+   npm run docker:push
+   ```
+
 ## Publishing the Docker Image to Azure Container Registry
 
 1. Login to your Azure account:
@@ -148,6 +165,11 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
 2. Create an Azure Container App:
    ```sh
    az containerapp create --name <app-name> --resource-group <resource-group-name> --environment <env-name> --image <registry-name>.azurecr.io/yatri-weather:latest --target-port 5173 --ingress 'external'
+   ```
+
+3. Obtain the live URL for the web app:
+   ```sh
+   az containerapp show --name <app-name> --resource-group <resource-group-name> --query properties.configuration.ingress.fqdn
    ```
 
 ## Setting Up a CI/CD Pipeline

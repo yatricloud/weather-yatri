@@ -88,7 +88,24 @@ Before you begin, ensure you have the following:
    npm run docker:run
    ```
 
-## Step 6: Publish the Docker Image to Azure Container Registry
+## Step 6: Publish the Docker Image to Docker Hub
+
+1. **Login to Docker Hub:**
+   ```sh
+   docker login
+   ```
+
+2. **Tag the Docker image:**
+   ```sh
+   docker tag yatri-weather <your-dockerhub-username>/yatri-weather:latest
+   ```
+
+3. **Push the Docker image to Docker Hub:**
+   ```sh
+   npm run docker:push
+   ```
+
+## Step 7: Publish the Docker Image to Azure Container Registry
 
 1. **Login to your Azure account:**
    ```sh
@@ -105,7 +122,7 @@ Before you begin, ensure you have the following:
    az acr build --registry weatheryatriacr --image yatri-weather:latest .
    ```
 
-## Step 7: Test the Application Using Azure Container Instance
+## Step 8: Test the Application Using Azure Container Instance
 
 1. **Create an Azure Container Instance:**
    ```sh
@@ -117,7 +134,7 @@ Before you begin, ensure you have the following:
    az container show --resource-group weather-yatri-rg --name weather-yatri-container --query "{FQDN:ipAddress.fqdn, ProvisioningState:provisioningState}"
    ```
 
-## Step 8: Integrate Azure Function with the Web Application
+## Step 9: Integrate Azure Function with the Web Application
 
 1. **Deploy the Azure Function to Azure:**
    ```sh
@@ -127,7 +144,7 @@ Before you begin, ensure you have the following:
 2. **Update the web application to call the Azure Function for weather alerts:**
    - Modify the API URL in the web application to point to the deployed Azure Function.
 
-## Step 9: Deploy the Web Application to Azure Container Apps
+## Step 10: Deploy the Web Application to Azure Container Apps
 
 1. **Create an Azure Container App environment:**
    ```sh
@@ -139,7 +156,12 @@ Before you begin, ensure you have the following:
    az containerapp create --name weather-yatri-app --resource-group weather-yatri-rg --environment weather-yatri-env --image weatheryatriacr.azurecr.io/yatri-weather:latest --target-port 80 --ingress 'external'
    ```
 
-## Step 10: Set Up a CI/CD Pipeline
+3. **Obtain the live URL for the web app:**
+   ```sh
+   az containerapp show --name weather-yatri-app --resource-group weather-yatri-rg --query properties.configuration.ingress.fqdn
+   ```
+
+## Step 11: Set Up a CI/CD Pipeline
 
 1. **Create a GitHub Actions workflow file in the `.github/workflows` directory:**
    ```yaml
@@ -183,7 +205,7 @@ Before you begin, ensure you have the following:
              az containerapp update --name weather-yatri-app --resource-group weather-yatri-rg --image weatheryatriacr.azurecr.io/yatri-weather:latest
    ```
 
-## Step 11: Set Up Application Insights and Azure Monitor
+## Step 12: Set Up Application Insights and Azure Monitor
 
 1. **Create an Application Insights resource:**
    ```sh
@@ -199,7 +221,7 @@ Before you begin, ensure you have the following:
    az monitor metrics alert create --name weather-yatri-alert --resource-group weather-yatri-rg --scopes <app-insights-resource-id> --condition "avg request duration > 1" --description "Alert when average request duration exceeds 1 second"
    ```
 
-## Step 12: Clean Up Resources
+## Step 13: Clean Up Resources
 
 1. **Delete the Resource Group to clean up all resources:**
    ```sh
