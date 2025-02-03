@@ -109,7 +109,7 @@ Before you begin, ensure you have the following:
 
 1. **Create an Azure Container Instance:**
    ```sh
-   az container create --resource-group weather-yatri-rg --name weather-yatri-container --image weatheryatriacr.azurecr.io/yatri-weather:latest --cpu 1 --memory 1 --registry-login-server weatheryatriacr.azurecr.io --registry-username <registry-username> --registry-password <registry-password> --ports 5173
+   az container create --resource-group weather-yatri-rg --name weather-yatri-container --image weatheryatriacr.azurecr.io/yatri-weather:latest --cpu 1 --memory 1 --registry-login-server weatheryatriacr.azurecr.io --registry-username P13ea --registry-password Pb7a9 --ports 5173
    ```
 
 2. **Check the status of the container instance:**
@@ -171,7 +171,7 @@ Before you begin, ensure you have the following:
 
          - name: Login to Azure Container Registry
            run: |
-             echo ${{ secrets.AZURE_CREDENTIALS }} | docker login weatheryatriacr.azurecr.io --username <registry-username> --password-stdin
+             echo ${{ secrets.AZURE_CREDENTIALS }} | docker login weatheryatriacr.azurecr.io --username P13ea --password-stdin
 
          - name: Build and push Docker image
            run: |
