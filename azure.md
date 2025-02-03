@@ -66,7 +66,26 @@ Before you begin, ensure you have the following:
 
 2. **Verify the response to ensure the function is working correctly.**
 
-## Step 5: Clean Up Resources
+## Step 5: Deploy the Container App to Azure Container Apps
+
+1. **Create an Azure Container App environment:**
+   ```sh
+   az containerapp env create --name WeatherYatriEnv --resource-group WeatherYatriResourceGroup --location eastus
+   ```
+
+2. **Create an Azure Container App:**
+   ```sh
+   az containerapp create --name WeatherYatriApp --resource-group WeatherYatriResourceGroup --environment WeatherYatriEnv --image <your-dockerhub-username>/yatri-weather:latest --target-port 5173 --ingress 'external'
+   ```
+
+## Step 6: Obtain the Live URL for the Container App
+
+1. **Get the live URL for the container app:**
+   ```sh
+   az containerapp show --name WeatherYatriApp --resource-group WeatherYatriResourceGroup --query properties.configuration.ingress.fqdn
+   ```
+
+## Step 7: Clean Up Resources
 
 1. **Delete the Resource Group to clean up all resources:**
    ```sh
