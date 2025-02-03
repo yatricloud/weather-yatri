@@ -28,14 +28,19 @@ Before you begin, ensure you have the following:
    az storage account create --name weatheryatristorage --resource-group weather-yatri-rg --location eastus --sku Standard_LRS
    ```
 
-4. **Create an Azure Function App:**
+4. **Create an App Service Plan:**
+   ```sh
+   az appservice plan create --name weather-yatri-plan --resource-group weather-yatri-rg --sku B1 --is-linux
+   ```
+
+5. **Create an Azure Function App:**
    ```sh
    az functionapp create --resource-group weather-yatri-rg --consumption-plan-location eastus --runtime node --functions-version 3 --name weather-yatri-func --storage-account weatheryatristorage
    ```
 
-5. **Create an Azure App Service:**
+6. **Create an Azure App Service:**
    ```sh
-   az webapp create --resource-group weather-yatri-rg --plan <app-service-plan> --name weather-yatri-app --runtime "NODE|14-lts"
+   az webapp create --resource-group weather-yatri-rg --plan weather-yatri-plan --name weather-yatri-app --runtime "NODE:20-lts"
    ```
 
 ## Step 2: Deploy the Azure Function
@@ -47,14 +52,14 @@ Before you begin, ensure you have the following:
 
 2. **Deploy the Azure Function:**
    ```sh
-   func azure functionapp publish weather-yatri-func
+   func azure functionapp publish weather-yatri-func --javascript
    ```
 
 ## Step 3: Configure Environment Variables
 
 1. **Set the WEATHER_API_KEY environment variable:**
    ```sh
-   az functionapp config appsettings set --name weather-yatri-func --resource-group weather-yatri-rg --settings "WEATHER_API_KEY=<your-weather-api-key>"
+   az functionapp config appsettings set --name weather-yatri-func --resource-group weather-yatri-rg --settings "WEATHER_API_KEY=1fa9ff4126d95b8db54f3897a208e91c"
    ```
 
 2. **Verify the environment variable is set:**
