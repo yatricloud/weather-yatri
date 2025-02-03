@@ -42,7 +42,7 @@ Before you begin, ensure you have the following:
 
 2. **Deploy the Azure Function:**
    ```sh
-   func azure functionapp publish WeatherYatriFunctionApp
+   func azure functionapp publish WeatherYatriFunctionApp --force
    ```
 
 ## Step 3: Configure Environment Variables
