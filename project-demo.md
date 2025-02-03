@@ -20,17 +20,17 @@ Before you begin, ensure you have the following:
 
 2. **Create a Resource Group:**
    ```sh
-   az group create --name weather-yatri-rg --location <location>
+   az group create --name weather-yatri-rg --location eastus
    ```
 
 3. **Create a Storage Account:**
    ```sh
-   az storage account create --name weatheryatristorage --resource-group weather-yatri-rg --location <location> --sku Standard_LRS
+   az storage account create --name weatheryatristorage --resource-group weather-yatri-rg --location eastus --sku Standard_LRS
    ```
 
 4. **Create an Azure Function App:**
    ```sh
-   az functionapp create --resource-group weather-yatri-rg --consumption-plan-location <location> --runtime node --functions-version 3 --name weather-yatri-func --storage-account weatheryatristorage
+   az functionapp create --resource-group weather-yatri-rg --consumption-plan-location eastus --runtime node --functions-version 3 --name weather-yatri-func --storage-account weatheryatristorage
    ```
 
 5. **Create an Azure App Service:**
