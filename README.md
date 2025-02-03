@@ -220,3 +220,7 @@ We welcome contributions to Weather Yatri! Please follow these guidelines:
 4. Open a pull request with a detailed description of your changes.
 
 For more details, see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Deploying from Azure Portal
+
+For detailed instructions on deploying the application from the Azure portal, refer to the [azure.md](azure.md) file.
