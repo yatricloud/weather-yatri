@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -26,7 +26,7 @@ jobs:
 
       - name: Login to Azure Container Registry
         run: |
-          echo ${{ secrets.AZURE_CREDENTIALS }} | docker login weatheryatriacr.azurecr.io --username weatheryatriacr --password-stdin
+          echo ${{ secrets.AZURE_CREDENTIALS }} | docker login weatheryatriacr.azurecr.io --username ${{ secrets.ACR_USERNAME }} --password-stdin
 
       - name: Build and push Docker image
         run: |

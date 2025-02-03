@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const API_KEY = '1fa9ff4126d95b8db54f3897a208e91c';
 const API_URL = 'https://api.openweathermap.org/data/2.5';
-const AZURE_FUNCTION_URL = 'http://localhost:7071/api/weather-alert';
+const AZURE_FUNCTION_URL = 'https://weather-yatri-func.azurewebsites.net/api/weather-alert';
 
 function App() {
   const [city, setCity] = useState('');
