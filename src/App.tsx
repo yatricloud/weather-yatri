@@ -13,6 +13,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [alert, setAlert] = useState('');
+  const [threshold, setThreshold] = useState<number>(30); // Default threshold value
 
   const fetchWeather = async (searchCity: string) => {
     try {
@@ -59,7 +60,6 @@ function App() {
 
   const triggerWeatherAlert = async (city: string, temperature: number) => {
     try {
-      const threshold = 30; // Example threshold
       const response = await axios.post(AZURE_FUNCTION_URL, {
         city,
         threshold
@@ -69,7 +69,11 @@ function App() {
         setAlert(response.data.body);
       }
     } catch (err: any) {
-      setError('Error triggering weather alert.');
+      if (axios.isAxiosError(err)) {
+        setError(`Error triggering weather alert: ${err.message}`);
+      } else {
+        setError('An unexpected error occurred while triggering weather alert.');
+      }
     }
   };
 
