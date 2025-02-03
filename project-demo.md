@@ -52,7 +52,7 @@ Before you begin, ensure you have the following:
 
 2. **Deploy the Azure Function:**
    ```sh
-   func azure functionapp publish weather-yatri-func --javascript
+   func azure functionapp publish weather-yatri-func --javascript --force
    ```
 
 ## Step 3: Configure Environment Variables
