@@ -35,7 +35,7 @@ Before you begin, ensure you have the following:
 
 5. **Create an Azure Function App:**
    ```sh
-   az functionapp create --resource-group weather-yatri-rg --consumption-plan-location eastus --runtime node --functions-version 3 --name weather-yatri-func --storage-account weatheryatristorage
+   az functionapp create --resource-group weather-yatri-rg --consumption-plan-location eastus --runtime node --functions-version 4 --name weather-yatri-func --storage-account weatheryatristorage
    ```
 
 6. **Create an Azure App Service:**
