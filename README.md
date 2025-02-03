@@ -37,7 +37,7 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
    cd azure-functions/weather-alert
    ```
 
-3. Create `host.json` in the `azure-functions/weather-alert` directory with the following content:
+3. Create `host.json` in the project root directory with the following content:
    ```json
    {
      "version": "2.0",
