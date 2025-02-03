@@ -70,7 +70,11 @@ function App() {
       }
     } catch (err: any) {
       if (axios.isAxiosError(err)) {
-        setError(`Error triggering weather alert: ${err.message}`);
+        if (err.message === 'Network Error') {
+          setError('Error triggering weather alert: Network Error');
+        } else {
+          setError(`Error triggering weather alert: ${err.message}`);
+        }
       } else {
         setError('An unexpected error occurred while triggering weather alert.');
       }
