@@ -30,9 +30,16 @@ module.exports = async function (context, req) {
             };
         }
     } catch (error) {
-        context.res = {
-            status: 500,
-            body: `Error fetching weather data: ${error.message}`
-        };
+        if (axios.isAxiosError(error) && error.message === 'Network Error') {
+            context.res = {
+                status: 500,
+                body: `Error fetching weather data: Network Error`
+            };
+        } else {
+            context.res = {
+                status: 500,
+                body: `Error fetching weather data: ${error.message}`
+            };
+        }
     }
 };
