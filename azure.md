@@ -30,7 +30,7 @@ Before you begin, ensure you have the following:
 
 4. **Create an Azure Function App:**
    ```sh
-   az functionapp create --resource-group WeatherYatriResourceGroup --consumption-plan-location eastus --runtime node --functions-version 3 --name WeatherYatriFunctionApp --storage-account weatheryatristorage
+   az functionapp create --resource-group WeatherYatriResourceGroup --consumption-plan-location eastus --runtime node --functions-version 4 --name WeatherYatriFunctionApp --storage-account weatheryatristorage
    ```
 
 ## Step 2: Deploy the Azure Function
