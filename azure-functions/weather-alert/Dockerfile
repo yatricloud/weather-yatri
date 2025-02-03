@@ -13,6 +13,9 @@ RUN npm install
 # Copy the rest of the app
 COPY . .
 
+# Fix permission error for vite
+RUN chmod +x node_modules/.bin/vite
+
 # Build the Vite project
 RUN npm run build
 
