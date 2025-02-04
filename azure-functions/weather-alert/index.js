@@ -1,27 +1,33 @@
-const axios = require('axios');
+const axios = require("axios");
 
 const weatherApiKey = process.env.WEATHER_API_KEY;
-const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+const weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather";
 
 module.exports = async function (context, req) {
-    const { city } = req.body;
+    const city = req.query.city || (req.body && req.body.city); // Supports both GET & POST
+
+    if (!city) {
+        context.res = {
+            status: 400,
+            body: { error: "City parameter is required." }
+        };
+        return;
+    }
 
     try {
         const response = await axios.get(weatherApiUrl, {
-            params: {
-                q: city,
-                units: 'metric',
-                appid: weatherApiKey
-            }
+            params: { q: city, units: "metric", appid: weatherApiKey }
         });
 
         const temperature = response.data.main.temp;
+        const alertMessage = temperature < 20
+            ? `⚠️ Temperature Alert: ${temperature}°C in ${city}!`
+            : `✅ Temperature is normal at ${temperature}°C in ${city}.`;
 
         context.res = {
             status: 200,
-            body: temperature < 20 
-                ? { alert: true, message: `⚠️ Temperature Alert: ${temperature}°C in ${city}!` }
-                : { alert: false, message: `✅ Temperature is normal at ${temperature}°C in ${city}.` }
+            headers: { "Access-Control-Allow-Origin": "*" }, // Allows frontend access
+            body: { alert: temperature < 20, message: alertMessage }
         };
 
     } catch (error) {
@@ -31,50 +37,3 @@ module.exports = async function (context, req) {
         };
     }
 };
-
-
-// const axios = require('axios');
-
-// const weatherApiKey = process.env.WEATHER_API_KEY;
-// const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather';
-
-// module.exports = async function (context, req) {
-//     const { city, threshold } = req.body;
-
-//     try {
-//         const response = await axios.get(weatherApiUrl, {
-//             params: {
-//                 q: city,
-//                 units: 'metric',
-//                 appid: weatherApiKey
-//             }
-//         });
-
-//         const weatherData = response.data;
-//         const temperature = weatherData.main.temp;
-
-//         if (temperature > threshold) {
-//             context.res = {
-//                 status: 200,
-//                 body: `Alert! The temperature in ${city} is ${temperature}°C, which is above your threshold of ${threshold}°C.`
-//             };
-//         } else {
-//             context.res = {
-//                 status: 200,
-//                 body: `No alert needed. The temperature in ${city} is ${temperature}°C.`
-//             };
-//         }
-//     } catch (error) {
-//         if (axios.isAxiosError(error) && error.message === 'Network Error') {
-//             context.res = {
-//                 status: 500,
-//                 body: `Error fetching weather data: Network Error`
-//             };
-//         } else {
-//             context.res = {
-//                 status: 500,
-//                 body: `Error fetching weather data: ${error.message}`
-//             };
-//         }
-//     }
-// };
