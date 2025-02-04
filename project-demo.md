@@ -55,6 +55,11 @@ Before you begin, ensure you have the following:
    func azure functionapp publish weather-yatri-func --javascript --force
    ```
 
+3. **Retrieve the invokeUrlTemplate:**
+   ```sh
+   az functionapp function show --name weather-yatri-func --resource-group weather-yatri-rg --function-name TemperatureCheck --query invokeUrlTemplate
+   ```
+
 ## Step 3: Configure Environment Variables
 
 1. **Set the WEATHER_API_KEY environment variable:**
@@ -71,7 +76,7 @@ Before you begin, ensure you have the following:
 
 1. **Trigger the Azure Function by making a POST request:**
    ```sh
-   curl -X POST https://<your-function-app-name>.azurewebsites.net/api/weather-alert -H "Content-Type: application/json" -d '{"city": "CityName", "threshold": TemperatureThreshold}'
+   curl -X POST https://<invokeUrlTemplate> -H "Content-Type: application/json" -d '{"city": "CityName", "threshold": TemperatureThreshold}'
    ```
 
 2. **Verify the response to ensure the function is working correctly.**

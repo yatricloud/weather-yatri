@@ -67,7 +67,12 @@ Weather Yatri provides accurate weather forecasts for cities worldwide.
 6. Configure environment variables for OpenWeatherMap API:
    - `WEATHER_API_KEY`: Your OpenWeatherMap API key
 
-7. Trigger the Azure Function by making a POST request to `http://localhost:7071/api/weather-alert` with the following JSON payload:
+7. Retrieve the invokeUrlTemplate after deploying the Azure Function:
+   ```sh
+   az functionapp function show --name WeatherYatriFunctionApp --resource-group WeatherYatriResourceGroup --function-name TemperatureCheck --query invokeUrlTemplate
+   ```
+
+8. Trigger the Azure Function by making a POST request to the retrieved `invokeUrlTemplate` with the following JSON payload:
    ```json
    {
      "city": "CityName",
