@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["get", "post"],
-      "route": "temperature-check"
+      "route": "weather-alert"
     },
     {
       "type": "http",
@@ -15,5 +15,5 @@
     }
   ],
   "scriptFile": "index.js",
-  "entryPoint": "TemperatureCheck"
+  "entryPoint": "index.TemperatureCheck"
 }
