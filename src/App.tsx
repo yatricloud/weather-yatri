@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const API_KEY = '1fa9ff4126d95b8db54f3897a208e91c';
 const API_URL = 'https://api.openweathermap.org/data/2.5';
-const AZURE_FUNCTION_URL = 'https://weather-yatri-func.azurewebsites.net/api/weather-alert';
+const AZURE_FUNCTION_URL = 'http://localhost:7071/api/weather-alert'; // Use local Azure Function URL when testing locally
 
 function App() {
   const [city, setCity] = useState('');
@@ -13,7 +13,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [alert, setAlert] = useState('');
-  const [threshold, setThreshold] = useState<number>(30); // Default threshold value
 
   const fetchWeather = async (searchCity: string) => {
     try {
@@ -35,7 +34,22 @@ function App() {
       
       if (response.data) {
         setWeather(response.data);
-        triggerWeatherAlert(searchCity, response.data.main.temp);
+        
+        try {
+          // Check temperature and trigger alert
+          const temperature = response.data.main.temp;
+          const alertResponse = await axios.post(AZURE_FUNCTION_URL, {
+            city: searchCity,
+            temperature: Math.round(temperature)
+          });
+          
+          if (alertResponse.data && alertResponse.data.message) {
+            setAlert(alertResponse.data.message);
+          }
+        } catch (alertError) {
+          console.error('Error checking temperature alert:', alertError);
+          // Don't set error state here to avoid disrupting the main weather display
+        }
       } else {
         throw new Error('No weather data available for this city.');
       }
@@ -55,29 +69,6 @@ function App() {
       }
     } finally {
       setLoading(false);
-    }
-  };
-
-  const triggerWeatherAlert = async (city: string, temperature: number) => {
-    try {
-      const response = await axios.post(AZURE_FUNCTION_URL, {
-        city,
-        threshold
-      });
-
-      if (response.data) {
-        setAlert(response.data.body);
-      }
-    } catch (err: any) {
-      if (axios.isAxiosError(err)) {
-        if (err.message === 'Network Error') {
-          setError('Error triggering weather alert: Network Error');
-        } else {
-          setError(`Error triggering weather alert: ${err.message}`);
-        }
-      } else {
-        setError('An unexpected error occurred while triggering weather alert.');
-      }
     }
   };
 
@@ -278,7 +269,7 @@ function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="text-yellow-200 mt-4 text-center max-w-md z-10"
+                className="mt-4 p-3 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-yellow-200 text-center"
               >
                 {alert}
               </motion.div>
