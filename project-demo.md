@@ -126,7 +126,7 @@ Before you begin, ensure you have the following:
 
 1. **Create an Azure Container Instance:**
    ```sh
-   az container create --resource-group weather-yatri-rg --name weather-yatri-container --image weatheryatriacr.azurecr.io/yatri-weather:latest --cpu 1 --memory 1 --registry-login-server weatheryatriacr.azurecr.io --registry-username weatheryatriacr --registry-password <your-registry-password> --ports 80
+   az container create --resource-group weather-yatri-rg --name weather-yatri-container --image <username>/yatri-weather:latest --cpu 1 --memory 1 --registry-login-server <server_url> --registry-username <username> --registry-password <your-registry-password> --ports 80
    ```
 
 2. **Check the status of the container instance:**
@@ -153,7 +153,7 @@ Before you begin, ensure you have the following:
 
 2. **Create an Azure Container App:**
    ```sh
-   az containerapp create --name weather-yatri-app --resource-group weather-yatri-rg --environment weather-yatri-env --image weatheryatriacr.azurecr.io/yatri-weather:latest --target-port 80 --ingress 'external'
+   az containerapp create --name weather-yatri-app --resource-group weather-yatri-rg --environment weather-yatri-env --image <username>/yatri-weather:latest --target-port 80 --ingress 'external'
    ```
 
 3. **Obtain the live URL for the web app:**
@@ -193,16 +193,16 @@ Before you begin, ensure you have the following:
 
          - name: Login to Azure Container Registry
            run: |
-             echo ${{ secrets.AZURE_CREDENTIALS }} | docker login weatheryatriacr.azurecr.io --username weatheryatriacr --password-stdin
+             echo ${{ secrets.AZURE_CREDENTIALS }} | docker login <server_url> --username <username> --password-stdin
 
          - name: Build and push Docker image
            run: |
-             docker build -t weatheryatriacr.azurecr.io/yatri-weather:latest .
-             docker push weatheryatriacr.azurecr.io/yatri-weather:latest
+             docker build -t <username>/yatri-weather:latest .
+             docker push <username>/yatri-weather:latest
 
          - name: Deploy to Azure Container Apps
            run: |
-             az containerapp update --name weather-yatri-app --resource-group weather-yatri-rg --image weatheryatriacr.azurecr.io/yatri-weather:latest
+             az containerapp update --name weather-yatri-app --resource-group weather-yatri-rg --image <username>/yatri-weather:latest
    ```
 
 ## Step 12: Set Up Application Insights and Azure Monitor
